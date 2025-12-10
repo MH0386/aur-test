@@ -48,7 +48,6 @@ jobs:
           srcinfo: true
           updpkgsums: true
           aur: true
-          pkgrel: true
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v7.0.0
         with:
