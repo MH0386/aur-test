@@ -43,4 +43,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Echo
-        run: echo ${{ matrix.package }}
+        run: |
+          echo ${{ matrix.package }}
+          ls -alh
