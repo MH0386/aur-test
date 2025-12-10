@@ -40,7 +40,7 @@ jobs:
         working-directory: ${{ matrix.package }}
     strategy:
       matrix:
-        package: ${{ needs.packages-list.outputs.packages }}
+        package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     steps:
       - name: Echo
         run: echo ${{ matrix.package }}
