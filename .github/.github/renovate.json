@@ -12,4 +12,10 @@
       "extractVersionTemplate": "^v?(?<version>.*)$"
     }
   ]  
+  "pre-commit": {
+    "enabled": true,
+    "labels": [
+      "pre-commit"
+    ]
+  }
 }
