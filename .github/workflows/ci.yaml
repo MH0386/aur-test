@@ -46,3 +46,7 @@ jobs:
           srcinfo: true
           updpkgsums: true
           aur: true
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a # v4.16.0
+        with:
+          file_pattern: 'packages/${{ matrix.package }}/*'
