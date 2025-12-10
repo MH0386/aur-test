@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   packages-list:
-    name: Packages List
+    name: Get Packages List
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.packages.outputs.folders_no_base_path }}
@@ -34,9 +34,6 @@ jobs:
     needs: [packages-list]
     runs-on: ubuntu-latest
     environment: ${{ matrix.package }}
-    # defaults:
-    #   run:
-    #     working-directory: packages/${{ matrix.package }}
     strategy:
       matrix:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
