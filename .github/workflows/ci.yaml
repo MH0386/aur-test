@@ -16,17 +16,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
       - name: Install dependencies
-        run: pacman -Syu --needed --noconfirm pacman-contrib namcap git devtools
+        run: |
+          pacman -S --needed --noconfirm paru
+          paru -Syu --needed --noconfirm pacman-contrib namcap git devtools bumper-bin
       - name: Create build user and setup permissions
         run: |
           useradd -m -s /bin/bash builder
           echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown -R builder $(pwd)
-      - name: Install Bumper
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
-        with:
-          repo: bcyran/bumper
-          cache: enable
       - run: bumper --version
       - run: su - builder -c "bumper packages/"
       - name: Commit
