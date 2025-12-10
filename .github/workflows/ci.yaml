@@ -13,6 +13,8 @@ jobs:
       contents: write
     container: archlinux:multilib-devel
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
       - name: Install dependencies
         run: pacman -Syu --needed --noconfirm pacman-contrib namcap git devtools
       - name: Create build user and setup permissions
@@ -20,8 +22,6 @@ jobs:
           useradd -m -s /bin/bash builder
           echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown -R builder ${{ github.workspace }}
-      - name: Checkout code
-        uses: actions/checkout@v5
       - name: Install Bumper
         uses: jaxxstorm/action-install-gh-release@v1.10.0
         with:
