@@ -38,11 +38,11 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     steps:
+      - uses: actions/checkout@v5
       - name: Cache Docker images
         uses: ScribeMD/docker-cache@0.5.0
         with:
           key: docker-${{ runner.os }}-${{ hashFiles(.github/workflows/ci.yaml) }}
-      - uses: actions/checkout@v5
       - name: Validate package
         uses: heyhusen/archlinux-package-action@v2.4.0
         with:
