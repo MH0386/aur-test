@@ -37,6 +37,8 @@ jobs:
     strategy:
       matrix:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v5
       - name: Validate package
