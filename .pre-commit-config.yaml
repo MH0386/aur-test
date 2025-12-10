@@ -3,21 +3,13 @@ repos:
     rev: v0.46.0
     hooks:
       - id: markdownlint
-        args:
-          - --config
-          - .github/lint/.markdownlint.yaml
       - id: markdownlint-fix
-        args:
-          - --config
-          - .github/lint/.markdownlint.yaml
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.29.0
     hooks:
       - id: yamllint
         args:
           - --strict
-          - -c
-          - .github/lint/.yamllint.yaml
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -54,9 +46,6 @@ repos:
     rev: 1.19.0
     hooks:
       - id: yamlfix
-        args:
-          - -c
-          - .github/lint/.yamlfix.toml
   - repo: https://github.com/rhysd/actionlint
     rev: v1.6.24
     hooks:
