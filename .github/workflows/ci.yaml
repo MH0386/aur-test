@@ -17,8 +17,9 @@ jobs:
         run: pacman -Syu --needed --noconfirm pacman-contrib namcap git devtools
       - name: Create build user and setup permissions
         run: |
-          useradd -m builder
-          echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+          useradd -m -s /bin/bash builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder ${{ github.workspace }}
       - name: Checkout code
         uses: actions/checkout@v5
       - name: Install Bumper
@@ -27,7 +28,7 @@ jobs:
           repo: bcyran/bumper
           cache: enable
       - run: bumper --version
-      - run: bumper packages/
+      - run: su - builder -c "bumper packages/"
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v7.0.0
         with:
