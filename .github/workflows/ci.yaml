@@ -42,7 +42,8 @@ jobs:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     steps:
       - uses: actions/checkout@v5
-      - name: Echo
-        run: |
-          echo ${{ matrix.package }}
-          ls -alh
+      - name: Validate package
+        uses: heyhusen/archlinux-package-action@v2.4.0
+        with:
+          path: .
+          srcinfo: true
