@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "extends": [    "config:best-practices"  ],
+  "osvVulnerabilityAlerts": true,
+  "regexManagers": [
+    {
+      "fileMatch": ["(^|/)PKGBUILD$"],
+      "matchStrings": [
+        "pkgver=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.*)$"
+    }
+  ]  
+}
