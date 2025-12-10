@@ -9,7 +9,6 @@ jobs:
     name: Packages List
     runs-on: ubuntu-latest
     outputs:
-      folders: ${{ steps.packages.outputs.folders }}
       packages: ${{ steps.packages.outputs.folders_no_base_path }}
     steps:
       - uses: actions/checkout@v5
@@ -37,7 +36,7 @@ jobs:
     environment: ${{ matrix.package }}
     defaults:
       run:
-        working-directory: ${{ matrix.package }}
+        working-directory: packages/${{ matrix.package }}
     strategy:
       matrix:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
