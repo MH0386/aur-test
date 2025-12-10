@@ -47,3 +47,4 @@ jobs:
         with:
           path: packages/${{ matrix.package }}
           srcinfo: true
+          aur: true
