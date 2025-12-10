@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Install dependencies
         run: |
-          pacman -S --needed --noconfirm paru
+          pacman -Syu --needed --noconfirm paru
           paru -Syu --needed --noconfirm pacman-contrib namcap git devtools bumper-bin
       - name: Create build user and setup permissions
         run: |
