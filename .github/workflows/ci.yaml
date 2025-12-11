@@ -39,18 +39,22 @@ jobs:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     permissions:
       contents: write
+      pull-requests: read
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
       - name: Check for ${{ matrix.package }} changed files
         id: changed
         uses: tj-actions/changed-files@v47.0.1
         with:
-          files: packages/${{ matrix.package }}/**
+          files: |
+            packages/${{ matrix.package }}/**
       - name: Validate and update ${{ matrix.package }} package
         uses: heyhusen/archlinux-package-action@v2.4.0
-        if: steps.changed.outputs.only_changed == true
+        if: steps.changed.outputs.only_changed == 'true'
         with:
           path: packages/${{ matrix.package }}
           pkgrel: ${{ github.actor == 'renovate[bot]' && '1' || '' }}
