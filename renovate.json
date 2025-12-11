@@ -10,5 +10,20 @@
     "labels": [
       "pre-commit"
     ]
-  }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "extractVersionTemplate": "^v?(?<version>.*)$",
+      "managerFilePatterns": [
+        "/(^|/)PKGBUILD$/"
+      ],
+      "labels": [
+        "aur"
+      ],
+      "matchStrings": [
+        "pkgver=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)"
+      ]
+    }
+  ]
 }
