@@ -18,17 +18,13 @@ jobs:
         with:
           paths: packages
       - name: Output total sub-folders
-        run: >
-          echo "Total sub-folders: ${{ steps.packages.outputs.total }}"
+        run: echo "Total sub-folders; ${{ steps.packages.outputs.total }}"
       - name: Output folders with base path
-        run: >
-          echo "Folders with base path: ${{ steps.packages.outputs.folders }}"
+        run: echo "Folders with base path; ${{ steps.packages.outputs.folders }}"
       - name: Output folders without base path
-        run: >
-          echo "Folders without base path: ${{ steps.packages.outputs.folders_no_base_path }}"
+        run: echo "Folders without base path; ${{ steps.packages.outputs.folders_no_base_path }}"
       - name: Output folders by path
-        run: >
-          echo "Folders by path: ${{ steps.packages.outputs.folders_by_path }}"
+        run: echo "Folders by path; ${{ steps.packages.outputs.folders_by_path }}"
   aur:
     name: ${{ matrix.package }}
     needs: [packages-list]
