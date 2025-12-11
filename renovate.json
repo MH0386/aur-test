@@ -14,16 +14,11 @@
   "customManagers": [
     {
       "customType": "regex",
-      "extractVersionTemplate": "^v?(?<version>.*)$",
-      "managerFilePatterns": [
-        "(^|/)PKGBUILD$"
-      ],
-      "labels": [
-        "aur"
-      ],
+      "managerFilePatterns": ["/(^|/)PKGBUILD$/"],
       "matchStrings": [
         "pkgver=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)"
-      ]
+      ],
+      "extractVersionTemplate": "^v?(?<version>.*)$"
     }
   ]
 }
