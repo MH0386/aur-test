@@ -50,10 +50,9 @@ jobs:
         uses: tj-actions/changed-files@v47.0.1
         with:
           files: packages/${{ matrix.package }}/**
-      - run: pwd
       - name: Validate and update ${{ matrix.package }} package
         uses: heyhusen/archlinux-package-action@v2.4.0
-        if: steps.changed.outputs.only_changed == 'true'
+        if: steps.changed.outputs.any_changed == 'true'
         with:
           path: packages/${{ matrix.package }}
           pkgrel: ${{ github.actor == 'renovate[bot]' && '1' || '' }}
