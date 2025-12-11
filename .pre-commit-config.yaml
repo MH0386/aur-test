@@ -1,4 +1,8 @@
 repos:
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.24
+    hooks:
+      - id: actionlint
   - repo: https://github.com/trufflesecurity/trufflehog
     rev: v3.91.2
     hooks:
@@ -26,9 +30,7 @@ repos:
         args:
           - --assume-in-merge
       - id: check-symlinks
-      - id: check-toml
       - id: check-vcs-permalinks
-      - id: check-xml
       - id: debug-statements
       - id: destroyed-symlinks
       - id: detect-private-key
@@ -48,7 +50,3 @@ repos:
     rev: 1.19.0
     hooks:
       - id: yamlfix
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.6.24
-    hooks:
-      - id: actionlint
