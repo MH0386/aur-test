@@ -11,23 +11,27 @@ jobs:
     outputs:
       packages: ${{ steps.packages.outputs.folders_no_base_path }}
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/checkout@v5
       - name: Get Packages List
         id: packages
         uses: Drafteame/list-folders-action@main
         with:
           paths: packages
       - name: Output total sub-folders
-        run: echo "Total sub-folders; ${{ steps.packages.outputs.total }}"
+        run: >
+          echo "Total sub-folders: ${{ steps.packages.outputs.total }}"
       - name: Output folders with base path
-        run: echo "Folders with base path; ${{ steps.packages.outputs.folders }}"
+        run: >
+          echo "Folders with base path: ${{ steps.packages.outputs.folders }}"
       - name: Output folders without base path
-        run: echo "Folders without base path; ${{ steps.packages.outputs.folders_no_base_path }}"
+        run: >
+          echo "Folders without base path: ${{ steps.packages.outputs.folders_no_base_path }}"
       - name: Output folders by path
-        run: echo "Folders by path; ${{ steps.packages.outputs.folders_by_path }}"
+        run: >
+          echo "Folders by path: ${{ steps.packages.outputs.folders_by_path }}"
   aur:
     name: ${{ matrix.package }}
-    needs: [packages-list]
+    needs: packages-list
     runs-on: ubuntu-latest
     environment: ${{ matrix.package }}
     strategy:
@@ -35,16 +39,26 @@ jobs:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     permissions:
       contents: write
+    if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
-      - name: Validate package
-        uses: heyhusen/archlinux-package-action@04303ce8da27317c34f00ea0a2c61ee0eed65ee3 # v2.4.0
+      - name: Checkout repository
+        uses: actions/checkout@v5.0.0
+      - name: Check for ${{ matrix.package }} changed files
+        id: changed
+        uses: tj-actions/changed-files@v47.0.1
+        with:
+          files: packages/${{ matrix.package }}/**
+      - name: Validate and update ${{ matrix.package }} package
+        uses: heyhusen/archlinux-package-action@v2.4.0
+        if: steps.changed.outputs.only_changed == true
         with:
           path: packages/${{ matrix.package }}
+          pkgrel: ${{ github.actor == 'renovate[bot]' && '1' || '' }}
           srcinfo: true
           updpkgsums: true
           aur: true
       - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3 # v7.0.0
+        uses: stefanzweifel/git-auto-commit-action@v7.0.0
         with:
-          file_pattern: 'packages/${{ matrix.package }}/*'
+          file_pattern: "packages/${{ matrix.package }}/*"
+          commit_message: "ci: Update ${{ matrix.package }} package files"
