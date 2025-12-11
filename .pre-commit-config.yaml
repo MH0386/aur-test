@@ -51,6 +51,6 @@ repos:
     hooks:
       - id: actionlint
   - repo: https://github.com/trufflesecurity/trufflehog
-    rev: v3.91.2
+    rev: v3.92.3
     hooks:
       - id: trufflehog
