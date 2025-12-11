@@ -39,13 +39,12 @@ jobs:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     permissions:
       contents: write
-      pull-requests: read
+      pull-requests: write
+      checks: write
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5.0.0
-        with:
-          fetch-depth: 0
       - name: Check for ${{ matrix.package }} changed files
         id: changed
         uses: tj-actions/changed-files@v47.0.1
