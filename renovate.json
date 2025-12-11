@@ -10,19 +10,5 @@
     "labels": [
       "pre-commit"
     ]
-  },
-  "regexManagers": [
-    {
-      "extractVersionTemplate": "^v?(?<version>.*)$",
-      "fileMatch": [
-        "(^|/)PKGBUILD$"
-      ],
-      "labels": [
-        "aur"
-      ],
-      "matchStrings": [
-        "pkgver=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)"
-      ]
-    }
-  ]
+  }
 }
