@@ -39,6 +39,7 @@ jobs:
         package: ${{ fromJson(needs.packages-list.outputs.packages) }}
     permissions:
       contents: write
+      pull-requests: read
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout repository
