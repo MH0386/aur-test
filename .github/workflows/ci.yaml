@@ -4,7 +4,33 @@ on:
     branches: main
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+  deployments: write
+  security-events: write
+  actions: read
 jobs:
+  pre-commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    environment: pre-commit
+    env:
+      YAMLFIX_EXPLICIT_START: false
+      YAMLFIX_SEQUENCE_STYLE: block_style
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4.0.0
+    - name: Setup Python
+      uses: actions/setup-python@v4.0.0
+      with:
+        python-version: 3.x       
+    - name: Run pre-commit hooks
+      uses: pre-commit/action@v3.0.1
+      continue-on-error: true
+    - name: pre-commit.ci lite
+      uses: pre-commit-ci/lite-action@v1.1.0
   packages-list:
     name: Get Packages List
     runs-on: ubuntu-latest
