@@ -14,6 +14,6 @@ pkgbase = cagent-bin
 	source_x86_64 = cagent::https://github.com/docker/cagent/releases/download/v1.0.3/cagent-linux-amd64
 	sha256sums_x86_64 = 929831697563ee5bffafbc2d38778ea6e38994af2a8d2c5d335ce6bba4f6a246
 	source_aarch64 = cagent::https://github.com/docker/cagent/releases/download/v1.0.3/cagent-linux-arm64
-	sha256sums_aarch64 = 31260e72bf590ccecbd6b5515daf7a7a59b6830f8ee118c36eeb68b2524ed8bd
+	sha256sums_aarch64 = 929831697563ee5bffafbc2d38778ea6e38994af2a8d2c5d335ce6bba4f6a246
 
 pkgname = cagent-bin
