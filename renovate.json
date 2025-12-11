@@ -16,7 +16,7 @@
       "customType": "regex",
       "extractVersionTemplate": "^v?(?<version>.*)$",
       "managerFilePatterns": [
-        "/(^|/)PKGBUILD$/"
+        "(^|/)PKGBUILD$"
       ],
       "labels": [
         "aur"
