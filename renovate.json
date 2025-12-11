@@ -11,11 +11,12 @@
       "pre-commit"
     ]
   },
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "extractVersionTemplate": "^v?(?<version>.*)$",
-      "fileMatch": [
-        "(^|/)PKGBUILD$"
+      "managerFilePatterns": [
+        "/(^|/)PKGBUILD$/"
       ],
       "labels": [
         "aur"
