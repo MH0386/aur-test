@@ -2,7 +2,7 @@
 
 pkgname=cagent-bin
 pkgdesc="Docker cagent - Agent Builder and Runtime (prebuilt binary)"
-pkgver=1.0.3 # renovate: datasource=github-tags depName=docker/cagent
+pkgver=1.14.0 # renovate: datasource=github-tags depName=docker/cagent
 pkgrel=2
 arch=('x86_64' 'aarch64')
 url="https://github.com/docker/cagent"
