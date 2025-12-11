@@ -5,50 +5,25 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  packages-list:
-    name: Get Packages List
-    runs-on: ubuntu-latest
-    outputs:
-      packages: ${{ steps.packages.outputs.folders_no_base_path }}
-    steps:
-      - uses: actions/checkout@v5
-      - name: Get Packages List
-        id: packages
-        uses: Drafteame/list-folders-action@main
-        with:
-          paths: packages
-      - name: Output total sub-folders
-        run: >
-          echo "Total sub-folders: ${{ steps.packages.outputs.total }}"
-      - name: Output folders with base path
-        run: >
-          echo "Folders with base path: ${{ steps.packages.outputs.folders }}"
-      - name: Output folders without base path
-        run: >
-          echo "Folders without base path: ${{ steps.packages.outputs.folders_no_base_path }}"
-      - name: Output folders by path
-        run: >
-          echo "Folders by path: ${{ steps.packages.outputs.folders_by_path }}"
   aur:
-    name: ${{ matrix.package }}
-    needs: [packages-list]
+    name: Bump AUR packages
     runs-on: ubuntu-latest
-    environment: ${{ matrix.package }}
-    strategy:
-      matrix:
-        package: ${{ fromJson(needs.packages-list.outputs.packages) }}
+    environment: AUR
     permissions:
       contents: write
+    container: cachyos/cachyos:latest
     steps:
-      - uses: actions/checkout@v5
-      - name: Validate package
-        uses: heyhusen/archlinux-package-action@v2.4.0
-        with:
-          path: packages/${{ matrix.package }}
-          srcinfo: true
-          updpkgsums: true
-          aur: true
-      - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@v7.0.0
-        with:
-          file_pattern: 'packages/${{ matrix.package }}/*'
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Create build user and setup permissions
+        run: |
+          useradd -m -s /bin/bash builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder $(pwd)
+      - name: Install dependencies
+        run: |
+          pacman -Syu --needed --noconfirm paru
+          su - builder -c "paru -Syu --needed --noconfirm pacman-contrib namcap git devtools bumper-bin yq"
+      - run: git config --global --add safe.directory '*'
+      - run: su - builder -c "bumper $(pwd)/packages/"
+ 
