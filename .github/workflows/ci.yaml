@@ -21,7 +21,7 @@ jobs:
       YAMLFIX_SEQUENCE_STYLE: block_style
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4.0.0
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
     - run: go version
     - name: Setup Python
       uses: actions/setup-python@v4.0.0
@@ -38,7 +38,7 @@ jobs:
     outputs:
       packages: ${{ steps.packages.outputs.folders_no_base_path }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Get Packages List
         id: packages
         uses: Drafteame/list-folders-action@main
@@ -70,7 +70,7 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
       - name: Check for ${{ matrix.package }} changed files
