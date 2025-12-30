@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.6.24
+    rev: v1.7.10
     hooks:
       - id: actionlint
   - repo: https://github.com/trufflesecurity/trufflehog
